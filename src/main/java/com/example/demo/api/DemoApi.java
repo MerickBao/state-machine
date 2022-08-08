@@ -16,4 +16,9 @@ public class DemoApi {
 	public String testQuery() {
 		return "hello world!";
 	}
+
+	@GetMapping("/test-query-1")
+	public String testQuery1() {
+		return "test-query-1";
+	}
 }

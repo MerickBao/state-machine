@@ -63,9 +63,4 @@ public class DemoApi {
 		DemoEntity demoEntity = demoService.getDemoEntityById(id);
 		return new JsonResponse<>(demoEntity);
 	}
-
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
 }

@@ -40,6 +40,8 @@ public class StateMachineService {
 		return stateMachineDAO.getStateMachineById(id);
 	}
 
+	public void updateStateMachine(StateMachineEntity machine){stateMachineDAO.updateStateMachine(machine);}
+
 	public List<StateMachineEntity> getStateMachines() {
 		List<StateMachineEntity> stateMachineEntities = new ArrayList<>();
 		//  查询所有的machineId
@@ -60,10 +62,10 @@ public class StateMachineService {
 		// 若不存在对应的Transition
 		if (trans == null) return 1;
 		// 获取下一个结点
-		nextNodeId = trans.getNext();
-		nextNodeEntity = stateNodeService.getStateNodeById(nextNodeId);
+		Integer nextNodeId = trans.getNext();
 		// 改变当前结点
 		machine.setCurrentStateId(nextNodeId);
+		updateStateMachine(machine);
 		// 进入新节点后，执行该结点包含的所有动作
 		List<ActionEntity> actions = actionService.getActionsByNodeId(nextNodeId);
 		for (ActionEntity action : actions) {

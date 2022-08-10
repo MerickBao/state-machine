@@ -51,8 +51,8 @@ public class StateMachineApi {
 
 	// 进行状态转移
 	@GetMapping("/trans")
-	public JsonResponse<String> transition(@RequestParam Integer machineId, @RequestParam Integer eventId) {
-		int res = stateMachineService.transition(machineId, eventId);
+	public JsonResponse<String> transition(@RequestParam Integer machineId, @RequestParam Integer code) {
+		int res = stateMachineService.transition(machineId, code);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 }

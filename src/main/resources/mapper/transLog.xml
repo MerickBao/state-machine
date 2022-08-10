@@ -4,7 +4,7 @@
 	<insert id="addLog" parameterType="com.example.demo.domain.TransLogEntity">
 		insert into t_trans_log (machineId, transId) values (#{machineId}, #{transId})
 	</insert>
-	<select id="getTransLogByMachineId" parameterType="java.lang.Integer" resultType="java.util.List">
+	<select id="getTransLogByMachineId" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransLogEntity">
 		select * from t_trans_log where machineId = #{id}
 	</select>
 </mapper>

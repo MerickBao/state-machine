@@ -30,22 +30,22 @@ public class StateMachineInstanceApi {
 
 	// 进行状态转移
 	@GetMapping("/trans")
-	public JsonResponse<String> transfer(@RequestParam Integer instanceId, @RequestParam Integer code) {
-		int res = stateMachineInstanceService.transfer(instanceId, code);
+	public JsonResponse<String> transfer(@RequestParam Integer id, @RequestParam Integer code) {
+		int res = stateMachineInstanceService.transfer(id, code);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 
 	// 输出转移链
 	@GetMapping("/printinfo")
-	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer instanceId) {
-		List<TransitionEntity> transChain = stateMachineInstanceService.getTransChain(instanceId);
+	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer id) {
+		List<TransitionEntity> transChain = stateMachineInstanceService.getTransChain(id);
 		return new JsonResponse<>(transChain);
 	}
 
 	// 重置状态机实例
 	@GetMapping("/reset-machine")
-	public JsonResponse<String> resetInstance(@RequestParam Integer instanceId) {
-		int res = stateMachineInstanceService.resetInstance(instanceId);
+	public JsonResponse<String> resetInstance(@RequestParam Integer id) {
+		int res = stateMachineInstanceService.resetInstance(id);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 }

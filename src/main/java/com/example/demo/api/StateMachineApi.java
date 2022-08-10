@@ -29,8 +29,8 @@ public class StateMachineApi {
 
 	// 查询单个状态机
 	@GetMapping("/state-machine")
-	public JsonResponse<StateMachineEntity> getStateMachineById(@RequestParam Integer id) {
-		StateMachineEntity stateMachineEntity = stateMachineService.getStateMachineById(id);
+	public JsonResponse<StateMachineEntity> getStateMachineById(@RequestParam Integer machineId) {
+		StateMachineEntity stateMachineEntity = stateMachineService.getStateMachineById(machineId);
 		return new JsonResponse<>(stateMachineEntity);
 	}
 

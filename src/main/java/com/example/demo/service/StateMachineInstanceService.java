@@ -85,6 +85,7 @@ public class StateMachineInstanceService {
 		for (TransitionEntity t : trans) {
 			System.out.print("--->" + stateNodeService.getStateNodeById(t.getNext()).getDescription());
 		}
+		System.out.println();
 		return trans;
 	}
 

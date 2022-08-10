@@ -65,7 +65,7 @@ public class StateMachineService {
 		// 改变当前结点
 		machine.setCurrentStateId(nextNodeId);
 		// 进入新节点后，执行该结点包含的所有动作
-		List<ActionEntity> actions = actionService.getActions();
+		List<ActionEntity> actions = actionService.getActionsByNodeId(nextNodeId);
 		for (ActionEntity action : actions) {
 			actionService.applyAction(action);
 		}

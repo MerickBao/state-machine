@@ -20,6 +20,9 @@ public class StateMachineInstanceService {
 	private StateMachineInstanceDAO stateMachineInstanceDAO;
 
 	@Autowired
+	private StateMachineService stateMachineService;
+
+	@Autowired
 	private StateNodeService stateNodeService;
 
 	@Autowired
@@ -65,7 +68,7 @@ public class StateMachineInstanceService {
 	public List<TransitionEntity> getTransChain(Integer instanceId) {
 		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
 		if (instance == null) return null;
-		StateMachineEntity schema = getStateMachineById(instance.getMachineId());
+		StateMachineEntity schema = stateMachineService.getStateMachineById(instance.getMachineId());
 
 		// 查询machineId下的所有log
 		List<TransLogEntity> logs = transLogService.getTransLogByInstanceId(instanceId);

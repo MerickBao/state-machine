@@ -49,15 +49,15 @@ public class StateMachineApi {
 
 	// 查询状态机转移日志
 	@GetMapping("/state-machine-trans-log")
-	public JsonResponse<List<TransLogEntity>> getTransLogByMachineId(@RequestParam Integer id) {
-		List<TransLogEntity> transLogEntities = transLogService.getTransLogByMachineId(id);
+	public JsonResponse<List<TransLogEntity>> getTransLogByInstanceId(@RequestParam Integer id) {
+		List<TransLogEntity> transLogEntities = transLogService.getTransLogByInstanceId(id);
 		return new JsonResponse<>(transLogEntities);
 	}
 
 	// 进行状态转移
 	@GetMapping("/trans")
-	public JsonResponse<String> transfer(@RequestParam Integer machineId, @RequestParam Integer code) {
-		int res = stateMachineService.transfer(machineId, code);
+	public JsonResponse<String> transfer(@RequestParam Integer instanceId, @RequestParam Integer code) {
+		int res = stateMachineService.transfer(instanceId, code);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 

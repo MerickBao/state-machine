@@ -20,5 +20,4 @@ public interface StateMachineDAO {
 
     void updateStateMachine(StateMachineEntity machine);
 
-    void resetStateMachine(@Param("machineId") Integer machineId, @Param("stateId") Integer stateId);
 }

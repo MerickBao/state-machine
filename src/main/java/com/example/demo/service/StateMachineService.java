@@ -52,7 +52,8 @@ public class StateMachineService {
 	public int transfer(Integer instanceId, Integer eventId) {
 		// 具体的转移流程
 		InstanceEntity instance = getInstanceById(instanceId);
-		StateMachineEntity machine = getStateMachineById(instance.getMachineId());
+		if (instance == null) return 1;
+		//StateMachineEntity machine = getStateMachineById(instance.getMachineId());
 		Integer curNodeId = instance.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
 		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
@@ -75,31 +76,27 @@ public class StateMachineService {
 		return 0;
 	}
 
-	public List<TransitionEntity> getTransChain(Integer machineId) {
+	public List<TransitionEntity> getTransChain(Integer instanceId) {
+		InstanceEntity instance = getInstanceById(instanceId);
+		if (instance == null) return null;
+		StateMachineEntity schema = getStateMachineById(instance.getMachineId());
+
 		// 查询machineId下的所有log
-		List<TransLogEntity> logs = transLogService.getTransLogByMachineId(machineId);
+		List<TransLogEntity> logs = transLogService.getTransLogByInstanceId(instanceId);
 		// 对应的转移实例列表
 		List<TransitionEntity> trans = new ArrayList<>();
 		// 查询对应的transEntity并加入List
 		for (TransLogEntity log : logs) {
 			trans.add(transitionService.getTransById(log.getTransId()));
 		}
+		// 先输出起始结点（defaultStateId)
+		System.out.print(stateNodeService.getStateNodeById(schema.getDefaultStateId()).getDescription());
 		// 状态机还没有进行过转移, 打印初始节点
-		if (trans.size() == 0) {
-			StateMachineEntity stateMachineEntity = stateMachineDAO.getStateMachineById(machineId);
-			System.out.println(stateNodeService.getStateNodeById(stateMachineEntity.getCurrentStateId()).getDescription());
-			return trans;
-		}
 		// 输出历史转移图
 		for (TransitionEntity t : trans) {
-			System.out.print(stateNodeService.getStateNodeById(t.getPrev()).getDescription() + "--->");
+			System.out.print("--->" + stateNodeService.getStateNodeById(t.getNext()).getDescription());
 		}
-		System.out.println(stateNodeService.getStateNodeById(trans.get(trans.size() - 1).getNext()).getDescription());
 		return trans;
 	}
 
-	public void resetStateMachine(Integer machineId, Integer stateId) {
-		stateMachineDAO.resetStateMachine(machineId, stateId);
-		transLogService.resetTransLogByMachineId(machineId);
-	}
 }

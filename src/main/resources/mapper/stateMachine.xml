@@ -16,8 +16,4 @@
         update t_state_machine set description = #{description}, currentStateId = #{currentStateId} where id = #{id}
     </update>
 
-    <update id="resetStateMachine">
-        update t_state_machine set currentStateId = #{stateId} where id = #{machineId}
-    </update>
-
 </mapper>

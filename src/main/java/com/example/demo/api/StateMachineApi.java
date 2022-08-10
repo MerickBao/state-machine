@@ -2,14 +2,11 @@ package com.example.demo.api;
 
 import com.example.demo.domain.JsonResponse;
 import com.example.demo.domain.StateMachineEntity;
-import com.example.demo.domain.TransLogEntity;
 import com.example.demo.domain.TransitionEntity;
 import com.example.demo.service.StateMachineService;
-import com.example.demo.service.TransLogService;
 import com.example.demo.service.TransitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,9 +25,6 @@ public class StateMachineApi {
 	private StateMachineService stateMachineService;
 
 	@Autowired
-	private TransLogService transLogService;
-
-	@Autowired
 	private TransitionService transitionService;
 
 	// 查询单个状态机
@@ -47,38 +41,10 @@ public class StateMachineApi {
 		return new JsonResponse<>(stateMachineEntities);
 	}
 
-	// 查询状态机转移日志
-	@GetMapping("/state-machine-trans-log")
-	public JsonResponse<List<TransLogEntity>> getTransLogByInstanceId(@RequestParam Integer id) {
-		List<TransLogEntity> transLogEntities = transLogService.getTransLogByInstanceId(id);
-		return new JsonResponse<>(transLogEntities);
-	}
-
-	// 进行状态转移
-	@GetMapping("/trans")
-	public JsonResponse<String> transfer(@RequestParam Integer instanceId, @RequestParam Integer code) {
-		int res = stateMachineService.transfer(instanceId, code);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
-	}
-
 	// 查询一个状态机结构的所有转移
 	@GetMapping("/transitions")
 	public JsonResponse<List<TransitionEntity>> getTransitions(@RequestParam Integer machineId) {
 		List<TransitionEntity> transitions = transitionService.getTransitions(machineId);
 		return new JsonResponse<>(transitions);
-	}
-
-	// 输出转移链
-	@GetMapping("/printinfo")
-	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer machineId) {
-		List<TransitionEntity> transChain = stateMachineService.getTransChain(machineId);
-		return new JsonResponse<>(transChain);
-	}
-
-	// 重置状态机实例
-	@GetMapping("/reset-machine")
-	public JsonResponse<String> resetStateMachine(@RequestParam Integer machineId, @RequestParam Integer stateId) {
-		stateMachineService.resetStateMachine(machineId, stateId);
-		return JsonResponse.success();
 	}
 }

@@ -22,4 +22,9 @@ public class ActionService {
 	public List<ActionEntity> getActionsByNodeId(Integer nodeId) {
 		return actionDAO.getActionsByNodeId(nodeId);
 	}
+
+	public int applyAction(ActionEntity action) {
+		System.out.println(action.getUrl());
+		return 0;
+	}
 }

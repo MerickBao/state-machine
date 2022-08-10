@@ -87,11 +87,22 @@ public class StateMachineService {
 		for (TransLogEntity log : logs) {
 			trans.add(transitionService.getTransById(log.getTransId()));
 		}
+		// 状态机还没有进行过转移, 打印初始节点
+		if (trans.size() == 0) {
+			StateMachineEntity stateMachineEntity = stateMachineDAO.getStateMachineById(machineId);
+			System.out.println(stateNodeService.getStateNodeById(stateMachineEntity.getCurrentStateId()).getDescription());
+			return trans;
+		}
 		// 输出历史转移图
 		for (TransitionEntity t : trans) {
 			System.out.print(stateNodeService.getStateNodeById(t.getPrev()).getDescription() + "--->");
 		}
 		System.out.println(stateNodeService.getStateNodeById(trans.get(trans.size() - 1).getNext()).getDescription());
 		return trans;
+	}
+
+	public void resetStateMachine(Integer machineId, Integer stateId) {
+		stateMachineDAO.resetStateMachine(machineId, stateId);
+		transLogService.resetTransLogByMachineId(machineId);
 	}
 }

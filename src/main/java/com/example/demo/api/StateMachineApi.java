@@ -73,4 +73,9 @@ public class StateMachineApi {
 		return new JsonResponse<>(transChain);
 	}
 
+	@GetMapping("/reset-machine")
+	public JsonResponse<String> resetStateMachine(@RequestParam Integer machineId, @RequestParam Integer stateId) {
+		stateMachineService.resetStateMachine(machineId, stateId);
+		return JsonResponse.success();
+	}
 }

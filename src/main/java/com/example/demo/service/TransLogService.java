@@ -19,4 +19,8 @@ public class TransLogService {
 	public int addLog(TransLogEntity log) {
 		return transLogDAO.addLog(log);
 	}
+
+	public void resetTransLogByMachineId(Integer machineId) {
+		transLogDAO.resetTransLogByMachineId(machineId);
+	}
 }

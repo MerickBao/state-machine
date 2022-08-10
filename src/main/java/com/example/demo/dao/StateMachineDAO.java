@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.domain.StateMachineEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface StateMachineDAO {
     List<Integer> getStateMachineIds();
 
     void updateStateMachine(StateMachineEntity machine);
+
+    void resetStateMachine(@Param("machineId") Integer machineId, @Param("stateId") Integer stateId);
 }

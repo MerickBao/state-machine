@@ -16,4 +16,6 @@ public interface TransLogDAO {
 	List<TransLogEntity> getTransLogByMachineId(Integer machineId);
 
 	int addLog(TransLogEntity log);
+
+	void resetTransLogByMachineId(Integer machineId);
 }

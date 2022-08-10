@@ -38,6 +38,20 @@ public class StateMachineInstanceService {
 		stateMachineInstanceDAO.updateInstance(instance);
 	}
 
+	public int insertInstance(InstanceEntity instance) {
+		if (instance.getDescription() == null || instance.getMachineId() == null) {
+			return 1;
+		}
+		StateMachineEntity schema = stateMachineService.getStateMachineById(instance.getMachineId());
+		instance.setCurrentStateId(schema.getDefaultStateId());
+		stateMachineInstanceDAO.insertInstance(instance);
+		return 0;
+	}
+
+	public List<InstanceEntity> getInstances(Integer machineId) {
+		return stateMachineInstanceDAO.getInstances(machineId);
+	}
+
 	public int transfer(Integer instanceId, Integer eventId) {
 		// 具体的转移流程
 		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);

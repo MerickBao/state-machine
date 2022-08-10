@@ -8,8 +8,8 @@
         select * from t_machine_schema where id = #{id}
     </select>
 
-    <select id="getStateMachineIds" resultType="java.lang.Integer">
-        select id from t_machine_schema
+    <select id="getStateMachines" resultType="com.example.demo.domain.StateMachineEntity">
+        select * from t_machine_schema
     </select>
 
 </mapper>

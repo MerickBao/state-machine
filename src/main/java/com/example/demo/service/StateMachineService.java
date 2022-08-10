@@ -5,8 +5,7 @@ import com.example.demo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
-import java.util.*;
+import java.util.List;
 
 /**
  * @Author: merickbao
@@ -25,13 +24,6 @@ public class StateMachineService {
 	}
 
 	public List<StateMachineEntity> getStateMachines() {
-		List<StateMachineEntity> stateMachineEntities = new ArrayList<>();
-		//  查询所有的machineId
-		List<Integer> stateMachineIds = stateMachineDAO.getStateMachineIds();
-		// 逐个进行查询、装载
-		for (Integer id : stateMachineIds) {
-			stateMachineEntities.add(stateMachineDAO.getStateMachineById(id));
-		}
-		return stateMachineEntities;
+		return stateMachineDAO.getStateMachines();
 	}
 }

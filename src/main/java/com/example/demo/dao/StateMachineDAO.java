@@ -15,5 +15,5 @@ import java.util.List;
 public interface StateMachineDAO {
     StateMachineEntity getStateMachineById(Integer id);
 
-    List<Integer> getStateMachineIds();
+    List<StateMachineEntity> getStateMachines();
 }

@@ -5,11 +5,11 @@
 <mapper namespace="com.example.demo.dao.StateMachineDAO">
 
     <select id="getStateMachineById" parameterType="java.lang.Integer" resultType="com.example.demo.domain.StateMachineEntity">
-        select * from t_state_machine_schema where id = #{id}
+        select * from t_machine_schema where id = #{id}
     </select>
 
     <select id="getStateMachineIds" resultType="java.lang.Integer">
-        select id from t_state_machine_schema
+        select id from t_machine_schema
     </select>
 
 </mapper>

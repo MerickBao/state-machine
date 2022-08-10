@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.StateMachineInstanceDAO;
-import com.example.demo.domain.StateMachineEntity;
-import com.example.demo.domain.StateNodeEntity;
 import com.example.demo.domain.TransitionEntity;
 import com.example.demo.domain.ActionEntity;
 import com.example.demo.domain.InstanceEntity;
@@ -22,10 +20,7 @@ import java.util.*;
 public class StateMachineInstanceService {
 
 	@Autowired
-	private StateMachineInstanceDAO stateMachineInsanceDAO;
-
-	@Autowired
-	private StateMachineService stateMachineService;
+	private StateMachineInstanceDAO stateMachineInstanceDAO;
 
 	@Autowired
 	private StateNodeService stateNodeService;
@@ -46,7 +41,6 @@ public class StateMachineInstanceService {
 	public int transfer(Integer instanceId, Integer eventId) {
 		// 具体的转移流程
 		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
-		StateMachineEntity machine = stateMachineService.getStateMachineById(instance.getMachineId());
 		Integer curNodeId = instance.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
 		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
@@ -69,9 +63,9 @@ public class StateMachineInstanceService {
 		return 0;
 	}
 
-	public List<TransitionEntity> getTransChain(Integer machineId) {
-		// 查询machineId下的所有log
-		List<TransLogEntity> logs = transLogService.getTransLogByInstanceId(machineId);
+	public List<TransitionEntity> getTransChain(Integer instanceId) {
+		// 查询instanceId下的所有log
+		List<TransLogEntity> logs = transLogService.getTransLogByInstanceId(instanceId);
 		// 对应的转移实例列表
 		List<TransitionEntity> trans = new ArrayList<>();
 		// 查询对应的transEntity并加入List
@@ -80,7 +74,7 @@ public class StateMachineInstanceService {
 		}
 		// 状态机还没有进行过转移, 打印初始节点
 		if (trans.size() == 0) {
-			InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(machineId);
+			InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
 			System.out.println(stateNodeService.getStateNodeById(instance.getCurrentStateId()).getDescription());
 			return trans;
 		}
@@ -92,8 +86,8 @@ public class StateMachineInstanceService {
 		return trans;
 	}
 
-	public void resetStateMachine(Integer machineId, Integer stateId) {
-		stateMachineInstanceDAO.resetStateMachine(machineId, stateId);
-		transLogService.resetTransLogByInstanceId(machineId);
+	public void resetInstance(Integer instanceId, Integer stateId) {
+		stateMachineInstanceDAO.resetInstance(instanceId, stateId);
+		transLogService.resetTransLogByInstanceId(instanceId);
 	}
 }

@@ -37,15 +37,15 @@ public class StateMachineInstanceApi {
 
 	// 输出转移链
 	@GetMapping("/printinfo")
-	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer machineId) {
-		List<TransitionEntity> transChain = stateMachineInstanceService.getTransChain(machineId);
+	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer instanceId) {
+		List<TransitionEntity> transChain = stateMachineInstanceService.getTransChain(instanceId);
 		return new JsonResponse<>(transChain);
 	}
 
 	// 重置状态机实例
 	@GetMapping("/reset-machine")
-	public JsonResponse<String> resetStateMachine(@RequestParam Integer machineId, @RequestParam Integer stateId) {
-		stateMachineInstanceService.resetStateMachine(machineId, stateId);
+	public JsonResponse<String> resetInstance(@RequestParam Integer instanceId, @RequestParam Integer stateId) {
+		stateMachineInstanceService.resetInstance(instanceId, stateId);
 		return JsonResponse.success();
 	}
 }

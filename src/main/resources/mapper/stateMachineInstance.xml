@@ -8,11 +8,11 @@
         select * from t_machine_instance where id = #{id}
     </select>
 
-    <update id="updateStateMachine" parameterType="com.example.demo.domain.StateMachineEntity">
+    <update id="updateInstance" parameterType="com.example.demo.domain.InstanceEntity">
         update t_machine_instance set description = #{description}, currentStateId = #{currentStateId} where id = #{id}
     </update>
 
-    <update id="resetStateMachine">
+    <update id="resetInstance">
         update t_machine_instance set currentStateId = #{stateId} where id = #{instanceId}
     </update>
 

@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD MAPPER 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.TransLogDAO">
-
-    <select id="getDemoEntityById" parameterType="java.lang.Integer" resultType="com.example.demo.domain.DemoEntity">
-        select * from t_demo where id = #{id}
-    </select>
-
+	<insert id="addLog" parameterType="com.example.demo.domain.TransLogEntity">
+		select * from t_trans_log where machineId = #{id}
+	</insert>
 </mapper>

@@ -6,17 +6,21 @@ import com.example.demo.domain.TransitionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 public class TransitionService {
 
 	@Autowired
 	private TransitionDAO transitionDAO;
 
-	TransitionEntity getTransById(Integer id) {
+	public TransitionEntity getTransById(Integer id) {
 		return transitionDAO.getTransById(id);
 	}
 
-	TransitionEntity getTrans(Integer curNodeId, Integer eventId) {
+	public TransitionEntity getTrans(Integer curNodeId, Integer eventId) {
 		return transitionDAO.getTransition(curNodeId, eventId);
+	}
+	public List<TransitionEntity> getTransitions(Integer machineId) {
+		return transitionDAO.getTransitions(machineId);
 	}
 }

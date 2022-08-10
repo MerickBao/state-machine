@@ -53,20 +53,32 @@ public class StateMachineService {
 		return stateMachineEntities;
 	}
 
-	public int transition(Integer machineId, Integer eventId) {
+	public int transfer(Integer machineId, Integer eventId) {
 		// 具体的转移流程
+		System.out.println(machineId);
+		System.out.println(eventId);
+
 		StateMachineEntity machine = getStateMachineById(machineId);
 		Integer curNodeId = machine.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
+
+		System.out.println(curNodeId);
+
 		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
 		// 若不存在对应的Transition
 		if (trans == null) return 1;
 		// 获取下一个结点
 		Integer nextNodeId = trans.getNext();
+
+		System.out.println(nextNodeId);
+
+
 		// 改变当前结点
 		machine.setCurrentStateId(nextNodeId);
 		updateStateMachine(machine);
 		// 进入新节点后，执行该结点包含的所有动作
+
+
 		List<ActionEntity> actions = actionService.getActionsByNodeId(nextNodeId);
 		for (ActionEntity action : actions) {
 			actionService.applyAction(action);
@@ -78,7 +90,7 @@ public class StateMachineService {
 		return 0;
 	}
 
-	public List<TransitionEntity> getLogByMachineId(Integer machineId) {
+	public List<TransitionEntity> getTransChain(Integer machineId) {
 		// 查询machineId下的所有log
 		List<TransLogEntity> logs = transLogService.getTransLogByMachineId(machineId);
 		// 对应的转移实例列表

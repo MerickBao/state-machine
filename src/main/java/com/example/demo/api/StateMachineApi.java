@@ -3,8 +3,10 @@ package com.example.demo.api;
 import com.example.demo.domain.JsonResponse;
 import com.example.demo.domain.StateMachineEntity;
 import com.example.demo.domain.TransLogEntity;
+import com.example.demo.domain.TransitionEntity;
 import com.example.demo.service.StateMachineService;
 import com.example.demo.service.TransLogService;
+import com.example.demo.service.TransitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,9 @@ public class StateMachineApi {
 
 	@Autowired
 	private TransLogService transLogService;
+
+	@Autowired
+	private TransitionService transitionService;
 
 	// 查询单个状态机
 	@GetMapping("/state-machine")
@@ -51,8 +56,21 @@ public class StateMachineApi {
 
 	// 进行状态转移
 	@GetMapping("/trans")
-	public JsonResponse<String> transition(@RequestParam Integer machineId, @RequestParam Integer code) {
-		int res = stateMachineService.transition(machineId, code);
+	public JsonResponse<String> transfer(@RequestParam Integer machineId, @RequestParam Integer code) {
+		int res = stateMachineService.transfer(machineId, code);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
+
+	@GetMapping("/transitions")
+	public JsonResponse<List<TransitionEntity>> getTransitions(@RequestParam Integer machineId) {
+		List<TransitionEntity> transitions = transitionService.getTransitions(machineId);
+		return new JsonResponse<>(transitions);
+	}
+
+	@GetMapping("/printinfo")
+	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer machineId) {
+		List<TransitionEntity> transChain = stateMachineService.getTransChain(machineId);
+		return new JsonResponse<>(transChain);
+	}
+
 }

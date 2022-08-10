@@ -5,6 +5,6 @@
 		insert into t_trans_log (machineId, transId) values (#{machineId}, #{transId})
 	</insert>
 	<select id="getTransLogByMachineId" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransLogEntity">
-		select * from t_trans_log where machineId = #{id}
+		select * from t_trans_log where machineId = #{id} order by createTime
 	</select>
 </mapper>

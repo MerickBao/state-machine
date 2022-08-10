@@ -26,11 +26,11 @@ public class TransLogEntity {
 		this.id = id;
 	}
 
-	public Integer getMachineId() {
+	public Integer getInstanceId() {
 		return instanceId;
 	}
 
-	public void setMachineId(Integer instanceId) {
+	public void setInstanceId(Integer instanceId) {
 		this.instanceId = instanceId;
 	}
 

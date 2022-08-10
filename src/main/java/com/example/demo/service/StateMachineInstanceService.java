@@ -69,7 +69,7 @@ public class StateMachineInstanceService {
 		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
 		if (instance == null) return null;
 		StateMachineEntity schema = stateMachineService.getStateMachineById(instance.getMachineId());
-
+		if (schema == null) return null;
 		// 查询machineId下的所有log
 		List<TransLogEntity> logs = transLogService.getTransLogByInstanceId(instanceId);
 		// 对应的转移实例列表
@@ -88,8 +88,14 @@ public class StateMachineInstanceService {
 		return trans;
 	}
 
-	public void resetInstance(Integer instanceId, Integer stateId) {
-		stateMachineInstanceDAO.resetInstance(instanceId, stateId);
+	public int resetInstance(Integer instanceId) {
+		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
+		if (instance == null) return 1;
+		StateMachineEntity schema = stateMachineService.getStateMachineById(instance.getMachineId());
+		if (schema == null) return 1;
+		instance.setCurrentStateId(schema.getDefaultStateId());
+		stateMachineInstanceDAO.updateInstance(instance);
 		transLogService.resetTransLogByInstanceId(instanceId);
+		return 0;
 	}
 }

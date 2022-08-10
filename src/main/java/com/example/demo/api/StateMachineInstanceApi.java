@@ -44,8 +44,8 @@ public class StateMachineInstanceApi {
 
 	// 重置状态机实例
 	@GetMapping("/reset-machine")
-	public JsonResponse<String> resetInstance(@RequestParam Integer instanceId, @RequestParam Integer stateId) {
-		stateMachineInstanceService.resetInstance(instanceId, stateId);
-		return JsonResponse.success();
+	public JsonResponse<String> resetInstance(@RequestParam Integer instanceId) {
+		int res = stateMachineInstanceService.resetInstance(instanceId);
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 }

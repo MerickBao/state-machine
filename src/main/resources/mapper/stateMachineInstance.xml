@@ -5,15 +5,15 @@
 <mapper namespace="com.example.demo.dao.StateMachineInstanceDAO">
 
     <select id="getStateMachineInstanceById" parameterType="java.lang.Integer" resultType="com.example.demo.domain.InstanceEntity">
-        select * from t_state_machine_instance where id = #{id}
+        select * from t_machine_instance where id = #{id}
     </select>
 
     <update id="updateStateMachine" parameterType="com.example.demo.domain.StateMachineEntity">
-        update t_state_machine_instance set description = #{description}, currentStateId = #{currentStateId} where id = #{id}
+        update t_machine_instance set description = #{description}, currentStateId = #{currentStateId} where id = #{id}
     </update>
 
     <update id="resetStateMachine">
-        update t_state_machine_instance set currentStateId = #{stateId} where id = #{instanceId}
+        update t_machine_instance set currentStateId = #{stateId} where id = #{instanceId}
     </update>
 
 </mapper>

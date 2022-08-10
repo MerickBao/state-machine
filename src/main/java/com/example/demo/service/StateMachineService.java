@@ -1,11 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.StateMachineDAO;
-import com.example.demo.domain.StateMachineEntity;
-import com.example.demo.domain.StateNodeEntity;
-import com.example.demo.domain.TransitionEntity;
-import com.example.demo.domain.ActionEntity;
-import com.example.demo.domain.TransLogEntity;
+import com.example.demo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,10 +49,11 @@ public class StateMachineService {
 		return stateMachineEntities;
 	}
 
-	public int transfer(Integer machineId, Integer eventId) {
+	public int transfer(Integer instanceId, Integer eventId) {
 		// 具体的转移流程
-		StateMachineEntity machine = getStateMachineById(machineId);
-		Integer curNodeId = machine.getCurrentStateId();
+		InstanceEntity instance = getInstanceById(instanceId);
+		StateMachineEntity machine = getStateMachineById(instance.getMachineId());
+		Integer curNodeId = instance.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
 		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
 		// 若不存在对应的Transition
@@ -64,15 +61,15 @@ public class StateMachineService {
 		// 获取下一个结点
 		Integer nextNodeId = trans.getNext();
 		// 改变当前结点
-		machine.setCurrentStateId(nextNodeId);
-		updateStateMachine(machine);
+		instance.setCurrentStateId(nextNodeId);
+		updateInstance(instance);
 		// 进入新节点后，执行该结点包含的所有动作
 		List<ActionEntity> actions = actionService.getActionsByNodeId(nextNodeId);
 		for (ActionEntity action : actions) {
 			actionService.applyAction(action);
 		}
 		TransLogEntity log = new TransLogEntity();
-		log.setMachineId(machineId);
+		log.setInstanceId(instanceId);
 		log.setTransId(trans.getId());
 		transLogService.addLog(log);
 		return 0;

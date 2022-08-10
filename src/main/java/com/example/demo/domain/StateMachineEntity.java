@@ -10,30 +10,12 @@ import java.util.Date;
 
 public class StateMachineEntity {
 
-	private Integer id;
-
-	private Integer currentStateId;
-
-	private String description;
-
-	private Date createTime;
-
-	private Date updateTime;
-
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getCurrentStateId() {
-		return currentStateId;
-	}
-
-	public void setCurrentStateId(Integer currentStateId) {
-		this.currentStateId = currentStateId;
 	}
 
 	public String getDescription() {
@@ -52,11 +34,21 @@ public class StateMachineEntity {
 		this.createTime = createTime;
 	}
 
-	public Date getUpdateTime() {
-		return updateTime;
+	public Integer getDefaultStateId() {
+		return defaultStateId;
 	}
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
+	public void setDefaultStateId(Integer defaultStateId) {
+		this.defaultStateId = defaultStateId;
 	}
+
+	private Integer id;
+
+	private String description;
+
+	private Date createTime;
+
+	private Integer defaultStateId;
+
+
 }

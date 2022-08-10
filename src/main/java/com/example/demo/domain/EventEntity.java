@@ -12,9 +12,9 @@ public class EventEntity {
 
 	private Integer id;
 
-	private Integer code;
-
 	private String description;
+
+	private Integer code;
 
 	private Date createTime;
 

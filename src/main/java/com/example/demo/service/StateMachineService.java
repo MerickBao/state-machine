@@ -71,7 +71,9 @@ public class StateMachineService {
 		for (ActionEntity action : actions) {
 			actionService.applyAction(action);
 		}
-		TransLogEntity log = new TransLogEntity(machineId, trans.getId());
+		TransLogEntity log = new TransLogEntity();
+		log.setMachineId(machineId);
+		log.setTransId(trans.getId());
 		transLogService.addLog(log);
 		return 0;
 	}

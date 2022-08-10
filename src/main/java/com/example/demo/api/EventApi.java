@@ -24,6 +24,7 @@ public class EventApi {
 	@Autowired
 	private StateMachineService stateMachineService;
 
+	// 查询一个事件
 	@GetMapping("/event")
 	public JsonResponse<EventEntity> getEventById(@RequestParam Integer id) {
 		EventEntity eventEntity = eventService.getEventById(id);

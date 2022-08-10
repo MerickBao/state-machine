@@ -12,7 +12,7 @@ public class TransLogEntity {
 
 	private Integer id;
 
-	private Integer machineId;
+	private Integer instanceId;
 
 	private Integer transId;
 
@@ -27,11 +27,11 @@ public class TransLogEntity {
 	}
 
 	public Integer getMachineId() {
-		return machineId;
+		return instanceId;
 	}
 
-	public void setMachineId(Integer machineId) {
-		this.machineId = machineId;
+	public void setMachineId(Integer instanceId) {
+		this.instanceId = instanceId;
 	}
 
 	public Integer getTransId() {

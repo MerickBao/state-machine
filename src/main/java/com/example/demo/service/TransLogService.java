@@ -12,15 +12,15 @@ public class TransLogService {
 	@Autowired
 	private TransLogDAO transLogDAO;
 
-	public List<TransLogEntity> getTransLogByMachineId(Integer machineId) {
-		return transLogDAO.getTransLogByMachineId(machineId);
+	public List<TransLogEntity> getTransLogByInstanceId(Integer instanceId) {
+		return transLogDAO.getTransLogByInstanceId(instanceId);
 	}
 
 	public int addLog(TransLogEntity log) {
 		return transLogDAO.addLog(log);
 	}
 
-	public void resetTransLogByMachineId(Integer machineId) {
-		transLogDAO.resetTransLogByMachineId(machineId);
+	public void resetTransLogByInstanceId(Integer instanceId) {
+		transLogDAO.resetTransLogByInstanceId(instanceId);
 	}
 }

@@ -3,14 +3,14 @@
 <mapper namespace="com.example.demo.dao.TransLogDAO">
 
 	<insert id="addLog" parameterType="com.example.demo.domain.TransLogEntity" useGeneratedKeys="true" keyProperty="id">
-		insert into t_trans_log (machineId, transId) values (#{machineId}, #{transId})
+		insert into t_trans_log (instanceId, transId) values (#{instanceId}, #{transId})
 	</insert>
 
-	<select id="getTransLogByMachineId" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransLogEntity">
-		select * from t_trans_log where machineId = #{id} order by createTime
+	<select id="getTransLogByInstanceId" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransLogEntity">
+		select * from t_trans_log where instanceId = #{id} order by createTime
 	</select>
 
-	<delete id="resetTransLogByMachineId" parameterType="java.lang.Integer">
-		delete from t_trans_log where machineId = #{machineId}
+	<delete id="resetTransLogByInstanceId" parameterType="java.lang.Integer">
+		delete from t_trans_log where instanceId = #{instanceId}
 	</delete>
 </mapper>

@@ -13,9 +13,9 @@ import java.util.List;
 
 @Mapper
 public interface TransLogDAO {
-	List<TransLogEntity> getTransLogByMachineId(Integer machineId);
+	List<TransLogEntity> getTransLogByInstanceId(Integer instanceId);
 
 	int addLog(TransLogEntity log);
 
-	void resetTransLogByMachineId(Integer machineId);
+	void resetTransLogByInstanceId(Integer instanceId);
 }

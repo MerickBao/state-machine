@@ -61,18 +61,21 @@ public class StateMachineApi {
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 
+	// 查询一个状态机结构的所有转移
 	@GetMapping("/transitions")
 	public JsonResponse<List<TransitionEntity>> getTransitions(@RequestParam Integer machineId) {
 		List<TransitionEntity> transitions = transitionService.getTransitions(machineId);
 		return new JsonResponse<>(transitions);
 	}
 
+	// 输出转移链
 	@GetMapping("/printinfo")
 	public JsonResponse<List<TransitionEntity>> printinfo(@RequestParam Integer machineId) {
 		List<TransitionEntity> transChain = stateMachineService.getTransChain(machineId);
 		return new JsonResponse<>(transChain);
 	}
 
+	// 重置状态机实例
 	@GetMapping("/reset-machine")
 	public JsonResponse<String> resetStateMachine(@RequestParam Integer machineId, @RequestParam Integer stateId) {
 		stateMachineService.resetStateMachine(machineId, stateId);

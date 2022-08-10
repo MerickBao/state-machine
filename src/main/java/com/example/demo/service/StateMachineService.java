@@ -55,30 +55,18 @@ public class StateMachineService {
 
 	public int transfer(Integer machineId, Integer eventId) {
 		// 具体的转移流程
-		System.out.println(machineId);
-		System.out.println(eventId);
-
 		StateMachineEntity machine = getStateMachineById(machineId);
 		Integer curNodeId = machine.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
-
-		System.out.println(curNodeId);
-
 		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
 		// 若不存在对应的Transition
 		if (trans == null) return 1;
 		// 获取下一个结点
 		Integer nextNodeId = trans.getNext();
-
-		System.out.println(nextNodeId);
-
-
 		// 改变当前结点
 		machine.setCurrentStateId(nextNodeId);
 		updateStateMachine(machine);
 		// 进入新节点后，执行该结点包含的所有动作
-
-
 		List<ActionEntity> actions = actionService.getActionsByNodeId(nextNodeId);
 		for (ActionEntity action : actions) {
 			actionService.applyAction(action);
@@ -95,22 +83,15 @@ public class StateMachineService {
 		List<TransLogEntity> logs = transLogService.getTransLogByMachineId(machineId);
 		// 对应的转移实例列表
 		List<TransitionEntity> trans = new ArrayList<>();
-		// 对logs根据创建时间排序
-		Collections.sort(logs, new Comparator<TransLogEntity>() {
-			@Override
-			public int compare(TransLogEntity o1, TransLogEntity o2) {
-				return o1.getCreateTime().compareTo(o2.getCreateTime());
-			}
-		});
 		// 查询对应的transEntity并加入List
 		for (TransLogEntity log : logs) {
 			trans.add(transitionService.getTransById(log.getTransId()));
 		}
 		// 输出历史转移图
 		for (TransitionEntity t : trans) {
-			System.out.print(t.getPrev().toString() + "-->");
+			System.out.print(stateNodeService.getStateNodeById(t.getPrev()).getDescription() + "--->");
 		}
-		System.out.println(trans.get(trans.size() - 1).getNext());
+		System.out.println(stateNodeService.getStateNodeById(trans.get(trans.size() - 1).getNext()).getDescription());
 		return trans;
 	}
 }

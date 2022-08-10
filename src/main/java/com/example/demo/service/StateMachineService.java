@@ -2,11 +2,15 @@ package com.example.demo.service;
 
 import com.example.demo.dao.StateMachineDAO;
 import com.example.demo.domain.StateMachineEntity;
+import com.example.demo.domain.StateNodeEntity;
+import com.example.demo.domain.TransitionEntity;
+import com.example.demo.domain.ActionEntity;
+import com.example.demo.domain.TransLogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.*;
+import java.util.*;
 
 /**
  * @Author: merickbao
@@ -19,6 +23,18 @@ public class StateMachineService {
 
 	@Autowired
 	private StateMachineDAO stateMachineDAO;
+
+	@Autowired
+	private StateNodeService stateNodeService;
+
+	@Autowired
+	private TransitionService transitionService;
+
+	@Autowired
+	private ActionService actionService;
+
+	@Autowired
+	private TransLogService transLogService;
 
 	public StateMachineEntity getStateMachineById(Integer id) {
 		return stateMachineDAO.getStateMachineById(id);
@@ -37,6 +53,48 @@ public class StateMachineService {
 
 	public int transition(Integer machineId, Integer eventId) {
 		// 具体的转移流程
+		StateMachineEntity machine = getStateMachineById(machineId);
+		Integer curNodeId = machine.getCurrentStateId();
+		// 根据当前结点和事件ID，查询TransitionEntity
+		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
+		// 若不存在对应的Transition
+		if (trans == null) return 1;
+		// 获取下一个结点
+		nextNodeId = trans.getNext();
+		nextNodeEntity = stateNodeService.getStateNodeById(nextNodeId);
+		// 改变当前结点
+		machine.setCurrentStateId(nextNodeId);
+		// 进入新节点后，执行该结点包含的所有动作
+		List<ActionEntity> actions = actionService.getActions();
+		for (ActionEntity action : actions) {
+			actionService.applyAction(action);
+		}
+		TransLogEntity log = new TransLogEntity(machineId, trans.getId());
+		transLogService.addLog(log);
 		return 0;
+	}
+
+	public List<TransitionEntity> getLogByMachineId(Integer machineId) {
+		// 查询machineId下的所有log
+		List<TransLogEntity> logs = transLogService.getTransLogByMachineId(machineId);
+		// 对应的转移实例列表
+		List<TransitionEntity> trans = new ArrayList<>();
+		// 对logs根据创建时间排序
+		Collections.sort(logs, new Comparator<TransLogEntity>() {
+			@Override
+			public int compare(TransLogEntity o1, TransLogEntity o2) {
+				return o1.getCreateTime().compareTo(o2.getCreateTime());
+			}
+		});
+		// 查询对应的transEntity并加入List
+		for (TransLogEntity log : logs) {
+			trans.add(transitionService.getTransById(log.getTransId()));
+		}
+		// 输出历史转移图
+		for (TransitionEntity t : trans) {
+			System.out.print(t.getPrev().toString() + "-->");
+		}
+		System.out.println(trans.get(trans.size() - 1).getNext());
+		return trans;
 	}
 }

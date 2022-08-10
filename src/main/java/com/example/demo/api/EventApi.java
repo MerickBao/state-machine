@@ -3,7 +3,7 @@ package com.example.demo.api;
 import com.example.demo.domain.EventEntity;
 import com.example.demo.domain.JsonResponse;
 import com.example.demo.service.EventService;
-import com.example.demo.service.StateMachineService;
+import com.example.demo.service.StateMachineInstanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +22,7 @@ public class EventApi {
 	private EventService eventService;
 
 	@Autowired
-	private StateMachineService stateMachineService;
+	private StateMachineInstanceService stateMachineInstanceService;
 
 	// 查询一个事件
 	@GetMapping("/event")
@@ -33,7 +33,7 @@ public class EventApi {
 
 	@GetMapping("/event-notification")
 	public JsonResponse<String> getEventById(@RequestParam Integer machineId, @RequestParam Integer code) {
-		int res = stateMachineService.transfer(machineId, code);
+		int res = stateMachineInstanceService.transfer(machineId, code);
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 }

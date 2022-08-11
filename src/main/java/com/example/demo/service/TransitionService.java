@@ -13,14 +13,27 @@ public class TransitionService {
 	@Autowired
 	private TransitionDAO transitionDAO;
 
+	@Autowired
+	private EventService eventService;
+
 	public TransitionEntity getTransById(Integer id) {
-		return transitionDAO.getTransById(id);
+		TransitionEntity trans = transitionDAO.getTransById(id);
+		if (trans == null) return null;
+		trans.setEvent(eventService.getEventById(trans.getEventId()));
+		return trans;
 	}
 
 	public TransitionEntity getTrans(Integer curNodeId, Integer eventId) {
-		return transitionDAO.getTransition(curNodeId, eventId);
+		TransitionEntity trans = transitionDAO.getTransition(curNodeId, eventId);
+		if (trans == null) return null;
+		trans.setEvent(eventService.getEventById(eventId));
+		return trans;
 	}
 	public List<TransitionEntity> getTransitions(Integer machineId) {
-		return transitionDAO.getTransitions(machineId);
+		List<TransitionEntity> trans = transitionDAO.getTransitions(machineId);
+		for (TransitionEntity t : trans) {
+			t.setEvent(eventService.getEventById(t.getEventId()));
+		}
+		return trans;
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.EventEntity;
 import java.util.Date;
 
 /**
@@ -21,6 +22,15 @@ public class TransitionEntity {
 	private Date createTime;
 
 	private Date updateTime;
+
+	private EventEntity event;
+
+	public EventEntity getEvent() {
+		return event;
+	}
+	public void setEvent(EventEntity event) {
+		this.event = event;
+	}
 
 	public Integer getId() {
 		return id;

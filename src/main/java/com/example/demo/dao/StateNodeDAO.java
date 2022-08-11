@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import com.example.demo.domain.StateNodeEntity;
 import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
 
 /**
  * @Author: merickbao
@@ -12,4 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface StateNodeDAO {
 	StateNodeEntity getStateNodeById(Integer id);
+
+	List<StateNodeEntity> getStateNodes(Integer machineId);
 }

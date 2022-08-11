@@ -12,6 +12,14 @@
         update t_machine_instance set description = #{description}, currentStateId = #{currentStateId} where id = #{id}
     </update>
 
+    <insert id="insertInstance" parameterType="com.example.demo.domain.InstanceEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into t_machine_instance (machineId, currentStateId, description) values (#{machineId}, #{currentStateId}, #{description})
+    </insert>
+
+    <select id="getInstances" parameterType="java.lang.Integer" resultType="com.example.demo.domain.InstanceEntity">
+        select * from t_machine_instance where machineId = #{machineId};
+    </select>
+
     <update id="resetInstance">
         update t_machine_instance set currentStateId = #{stateId} where id = #{instanceId}
     </update>

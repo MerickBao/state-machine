@@ -24,9 +24,19 @@ public class StateNodeService {
 	private ActionService actionService;
 
 	public StateNodeEntity getStateNodeById(Integer id) {
-		StateNodeEntity stateNodeEntity = stateNodeDAO.getStateNodeById(id);
-		List<ActionEntity> actionEntities = actionService.getActionsByNodeId(id);
-		stateNodeEntity.setActionEntities(actionEntities);
-		return stateNodeEntity;
+		StateNodeEntity node = stateNodeDAO.getStateNodeById(id);
+		if (node == null) return null;
+		List<ActionEntity> actions = actionService.getActionsByNodeId(id);
+		node.setActions(actions);
+		return node;
+	}
+
+	public List<StateNodeEntity> getStateNodes(Integer machineId) {
+		List<StateNodeEntity> nodes = stateNodeDAO.getStateNodes(machineId);
+		for (StateNodeEntity node : nodes) {
+			List<ActionEntity> actions = actionService.getActionsByNodeId(node.getId());
+			node.setActions(actions);
+		}
+		return nodes;
 	}
 }

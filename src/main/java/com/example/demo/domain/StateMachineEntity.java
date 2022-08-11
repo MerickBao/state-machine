@@ -1,7 +1,9 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.StateNodeEntity;
+import com.example.demo.domain.TransitionEntity;
 import java.util.Date;
-
+import java.util.List;
 /**
  * @Author: merickbao
  * @Created_Time: 2022-08-10 08:30
@@ -50,5 +52,24 @@ public class StateMachineEntity {
 
 	private Integer defaultStateId;
 
+	private List<StateNodeEntity> stateNodes;
+
+	private List<TransitionEntity> transitions;
+
+	public List<StateNodeEntity> getStateNodes() {
+		return stateNodes;
+	}
+
+	public void setStateNodes(List<StateNodeEntity> stateNodes) {
+		this.stateNodes = stateNodes;
+	}
+
+	public List<TransitionEntity> getTransitions() {
+		return transitions;
+	}
+
+	public void setTransitions(List<TransitionEntity> transitions) {
+		this.transitions = transitions;
+	}
 
 }

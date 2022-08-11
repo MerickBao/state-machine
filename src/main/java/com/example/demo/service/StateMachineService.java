@@ -49,14 +49,15 @@ public class StateMachineService {
 
 	public int insertStateMachine(StateMachineEntity schema) {
 		schema.setDefaultStateId(0);
-		Integer machineId = stateMachineDAO.insertStateMachine(schema);
-		schema.setId(machineId);
+		stateMachineDAO.insertStateMachine(schema);
+		Integer machineId = schema.getId();
 		List<TransitionEntity> trans = schema.getTransitions();
 		List<StateNodeEntity> nodes = schema.getStateNodes();
 		Map<String, Integer> map = new HashMap<>();
 		for (StateNodeEntity node : nodes) {
 			node.setMachineId(machineId);
-			Integer nodeId = stateNodeService.insertNode(node);
+			stateNodeService.insertNode(node);
+			Integer nodeId = node.getId();
 			List<ActionEntity> actions = node.getActions();
 			for (ActionEntity action : actions) {
 				action.setNodeId(nodeId);
@@ -68,7 +69,9 @@ public class StateMachineService {
 		stateMachineDAO.updateStateMachine(schema);
 		for (TransitionEntity t : trans) {
 			t.setMachineId(machineId);
-			Integer eventId = eventService.insertEvent(t.getEvent());
+			EventEntity event = t.getEvent();
+			eventService.insertEvent(event);
+			Integer eventId = event.getId();
 			t.setEventId(eventId);
 			t.setPrev(map.get(t.getPrevNode()));
 			t.setNext(map.get(t.getNextNode()));

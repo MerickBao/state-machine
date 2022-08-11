@@ -6,7 +6,6 @@ import com.example.demo.domain.TransLogEntity;
 import com.example.demo.domain.TransitionEntity;
 import com.example.demo.service.StateMachineInstanceService;
 import com.example.demo.service.TransLogService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +27,7 @@ public class StateMachineInstanceApi {
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 
-	// 查询一类状态机的所有实例
+	// 查询一个状态机结构下的所有示例
 	@GetMapping("/instances")
 	public JsonResponse<List<InstanceEntity>> getInstances(@RequestParam Integer machineId) {
 		List<InstanceEntity> instances = stateMachineInstanceService.getInstances(machineId);

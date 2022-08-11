@@ -58,14 +58,14 @@ public class StateMachineInstanceService {
 		return stateMachineInstanceDAO.getInstances(machineId);
 	}
 
-	public int transfer(Integer instanceId, Integer eventId) {
+	public int transfer(Integer instanceId, Integer code) {
 		// 具体的转移流程
 		InstanceEntity instance = stateMachineInstanceDAO.getStateMachineInstanceById(instanceId);
 		if (instance == null) return 1;
 		//StateMachineEntity machine = getStateMachineById(instance.getMachineId());
 		Integer curNodeId = instance.getCurrentStateId();
 		// 根据当前结点和事件ID，查询TransitionEntity
-		TransitionEntity trans = transitionService.getTrans(curNodeId, eventId);
+		TransitionEntity trans = transitionService.getTrans(curNodeId, code);
 		// 若不存在对应的Transition
 		if (trans == null) return 1;
 		// 获取下一个结点

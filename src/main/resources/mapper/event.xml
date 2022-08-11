@@ -8,8 +8,14 @@
         select * from t_event where id = #{id}
     </select>
 
+    <select id="getEventByCode" parameterType="java.lang.Integer" resultType="com.example.demo.domain.EventEntity">
+        select * from t_event where code = #{code}
+    </select>
+
     <insert id="insertEvent" parameterType="com.example.demo.domain.EventEntity" useGeneratedKeys="true" keyProperty="id">
         insert into t_event (description, code) values (#{description}, #{code})
     </insert>
+
+
 
 </mapper>

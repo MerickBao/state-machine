@@ -47,6 +47,9 @@ public class StateMachineInstanceService {
 			return 2;
 		}
 		instance.setCurrentStateId(schema.getDefaultStateId());
+		// 执行初始节点的所有action
+		actionService.applyActions(instance.getCurrentStateId());
+
 		stateMachineInstanceDAO.insertInstance(instance);
 		return 0;
 	}

@@ -27,4 +27,11 @@ public class ActionService {
 		System.out.println(action.getUrl());
 		return 0;
 	}
+
+	public void applyActions(Integer currentStateId) {
+		List<ActionEntity> actionEntities = getActionsByNodeId(currentStateId);
+		for (ActionEntity action : actionEntities) {
+			applyAction(action);
+		}
+	}
 }

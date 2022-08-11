@@ -4,65 +4,63 @@ import java.util.Date;
 
 public class InstanceEntity {
 
-    private Integer id;
+	private Integer id;
 
-    private Integer machineId;
+	private Integer machineId;
 
-    private Integer currentStateId;
+	private Integer currentStateId;
 
-    public Integer getId() {
-        return id;
-    }
+	private String description;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	private Date createTime;
 
-    public Integer getMachineId() {
-        return machineId;
-    }
+	private Date updateTime;
 
-    public void setMachineId(Integer machineId) {
-        this.machineId = machineId;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getCurrentStateId() {
-        return currentStateId;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setCurrentStateId(Integer currentStateId) {
-        this.currentStateId = currentStateId;
-    }
+	public Integer getMachineId() {
+		return machineId;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setMachineId(Integer machineId) {
+		this.machineId = machineId;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Integer getCurrentStateId() {
+		return currentStateId;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public void setCurrentStateId(Integer currentStateId) {
+		this.currentStateId = currentStateId;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    private String description;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    private Date createTime;
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    private Date updateTime;
-
-
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 }

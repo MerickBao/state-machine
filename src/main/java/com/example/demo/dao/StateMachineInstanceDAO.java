@@ -7,14 +7,14 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 @Mapper
 public interface StateMachineInstanceDAO {
-    InstanceEntity getStateMachineInstanceById(Integer id);
+	InstanceEntity getStateMachineInstanceById(Integer id);
 
-    void updateInstance(InstanceEntity instance);
+	void updateInstance(InstanceEntity instance);
 
-    void insertInstance(InstanceEntity instance);
+	void insertInstance(InstanceEntity instance);
 
-    List<InstanceEntity> getInstances(Integer machineId);
+	List<InstanceEntity> getInstances(Integer machineId);
 
-    void resetInstance(@Param("instanceId") Integer instanceId, @Param("stateId") Integer stateId);
+	void resetInstance(@Param("instanceId") Integer instanceId, @Param("stateId") Integer stateId);
 
 }

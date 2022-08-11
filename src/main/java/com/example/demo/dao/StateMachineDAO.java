@@ -13,11 +13,11 @@ import java.util.List;
 
 @Mapper
 public interface StateMachineDAO {
-    StateMachineEntity getStateMachineById(Integer id);
+	StateMachineEntity getStateMachineById(Integer id);
 
-    List<StateMachineEntity> getStateMachines();
+	List<StateMachineEntity> getStateMachines();
 
-    Integer insertStateMachine(StateMachineEntity schema);
+	Integer insertStateMachine(StateMachineEntity schema);
 
-    void updateStateMachine(StateMachineEntity schema);
+	void updateStateMachine(StateMachineEntity schema);
 }

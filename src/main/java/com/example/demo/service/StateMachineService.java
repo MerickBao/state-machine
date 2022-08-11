@@ -57,11 +57,11 @@ public class StateMachineService {
 		return stateMachineDAO.getStateMachines();
 	}
 
-    public Integer insertStateMachine(StateMachineEntity schema) {
+	public Integer insertStateMachine(StateMachineEntity schema) {
 		return stateMachineDAO.insertStateMachine(schema);
 	}
 
-    public void updateStateMachine(StateMachineEntity schema) {
+	public void updateStateMachine(StateMachineEntity schema) {
 		stateMachineDAO.updateStateMachine(schema);
 	}
 

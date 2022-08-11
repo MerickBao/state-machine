@@ -10,6 +10,18 @@ import java.util.List;
 
 public class StateMachineEntity {
 
+	private Integer id;
+
+	private String description;
+
+	private Date createTime;
+
+	private Integer defaultStateId;
+
+	private List<StateNodeEntity> stateNodes;
+
+	private List<TransitionEntity> transitions;
+
 	public Integer getId() {
 		return id;
 	}
@@ -41,18 +53,6 @@ public class StateMachineEntity {
 	public void setDefaultStateId(Integer defaultStateId) {
 		this.defaultStateId = defaultStateId;
 	}
-
-	private Integer id;
-
-	private String description;
-
-	private Date createTime;
-
-	private Integer defaultStateId;
-
-	private List<StateNodeEntity> stateNodes;
-
-	private List<TransitionEntity> transitions;
 
 	public List<StateNodeEntity> getStateNodes() {
 		return stateNodes;

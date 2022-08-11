@@ -11,7 +11,7 @@ import java.util.Date;
 public class TransitionEntity {
 
 	private Integer id;
-	
+
 	private Integer machineId;
 
 	private Integer eventId;

@@ -8,4 +8,9 @@
         select * from t_action where nodeId = #{nodeId}
     </select>
 
+    <insert id="insertAction" parameterType="com.example.demo.domain.ActionEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into t_action (nodeId, url) values (#{nodeId}, #{url})
+    </insert>
+
+
 </mapper>

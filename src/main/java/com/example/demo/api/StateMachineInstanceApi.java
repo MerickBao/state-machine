@@ -24,7 +24,7 @@ public class StateMachineInstanceApi {
 	@PostMapping("/instance")
 	public JsonResponse<String> insertInstance(@RequestBody InstanceEntity instance) {
 		int res = stateMachineInstanceService.insertInstance(instance);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail(Integer.toString(res));
 	}
 
 	// 查询一个状态机结构下的所有示例
@@ -45,7 +45,7 @@ public class StateMachineInstanceApi {
 	@GetMapping("/trans")
 	public JsonResponse<String> transfer(@RequestParam Integer id, @RequestParam Integer code) {
 		int res = stateMachineInstanceService.transfer(id, code);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail(Integer.toString(res));
 	}
 
 	// 输出转移链
@@ -59,6 +59,6 @@ public class StateMachineInstanceApi {
 	@GetMapping("/reset-instance")
 	public JsonResponse<String> resetInstance(@RequestParam Integer id) {
 		int res = stateMachineInstanceService.resetInstance(id);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail(Integer.toString(res));
 	}
 }

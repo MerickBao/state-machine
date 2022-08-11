@@ -12,5 +12,9 @@
         select * from t_state_node where machineId = #{machineId}
     </select>
 
+    <insert id="insertNode" parameterType="com.example.demo.domain.StateNodeEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into t_state_node (machineId, description, identification) values (#{machineId}, #{description}, #{identification})
+    </insert>
+
 
 </mapper>

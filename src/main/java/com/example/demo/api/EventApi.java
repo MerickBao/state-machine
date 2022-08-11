@@ -34,6 +34,6 @@ public class EventApi {
 	@GetMapping("/event-notification")
 	public JsonResponse<String> eventNotification(@RequestParam Integer machineId, @RequestParam Integer code) {
 		int res = stateMachineInstanceService.transfer(machineId, code);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail(Integer.toString(res));
 	}
 }

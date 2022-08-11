@@ -14,9 +14,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService {
 
-    @Autowired
-    private EventDAO eventDAO;
-    public EventEntity getEventById(Integer id) {
-        return eventDAO.getEventById(id);
-    }
+	@Autowired
+	private EventDAO eventDAO;
+	public EventEntity getEventById(Integer id) {
+		return eventDAO.getEventById(id);
+	}
+
+	Integer insertEvent(EventEntity event){
+		return eventDAO.insertEvent(event);
+	};
 }

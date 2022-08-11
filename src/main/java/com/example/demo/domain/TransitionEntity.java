@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.EventEntity;
 import java.util.Date;
 
 /**
@@ -12,6 +11,8 @@ import java.util.Date;
 public class TransitionEntity {
 
 	private Integer id;
+
+	private Integer machineId;
 
 	private Integer eventId;
 
@@ -25,19 +26,20 @@ public class TransitionEntity {
 
 	private EventEntity event;
 
-	public EventEntity getEvent() {
-		return event;
-	}
-	public void setEvent(EventEntity event) {
-		this.event = event;
-	}
-
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getMachineId() {
+		return machineId;
+	}
+
+	public void setMachineId(Integer machineId) {
+		this.machineId = machineId;
 	}
 
 	public Integer getEventId() {
@@ -78,5 +80,12 @@ public class TransitionEntity {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public EventEntity getEvent() {
+		return event;
+	}
+	public void setEvent(EventEntity event) {
+		this.event = event;
 	}
 }

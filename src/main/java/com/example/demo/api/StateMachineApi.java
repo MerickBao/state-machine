@@ -6,9 +6,7 @@ import com.example.demo.domain.TransitionEntity;
 import com.example.demo.service.StateMachineService;
 import com.example.demo.service.TransitionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,8 +36,15 @@ public class StateMachineApi {
 	// 获得单个状态机的完整结构（json包）
 	@GetMapping("/state-machine-struct")
 	public JsonResponse<StateMachineEntity> getStructById(@RequestParam Integer machineId) {
-		StateMachineEntity stateMachineEntity = stateMachineService.getStructById(machineId);
-		return new JsonResponse<>(stateMachineEntity);
+		StateMachineEntity schema = stateMachineService.getStructById(machineId);
+		return new JsonResponse<>(schema);
+	}
+
+	// 添加状态机
+	@PostMapping("/state-machine")
+	public JsonResponse<String> insertStateMachine(@RequestBody StateMachineEntity schema) {
+		int res = stateMachineService.insertStateMachine(schema);
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 
 	// 查询所有状态机

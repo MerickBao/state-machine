@@ -56,6 +56,16 @@ public class StateMachineEntity {
 
 	private List<TransitionEntity> transitions;
 
+	private String defaultState;
+
+	public String getDefaultState() {
+		return defaultState;
+	}
+
+	public void setDefaultState(String defaultState) {
+		this.defaultState = defaultState;
+	}
+
 	public List<StateNodeEntity> getStateNodes() {
 		return stateNodes;
 	}

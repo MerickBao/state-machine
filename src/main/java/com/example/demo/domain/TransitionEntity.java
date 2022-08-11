@@ -13,6 +13,8 @@ public class TransitionEntity {
 
 	private Integer id;
 
+	private Integer machineId;
+
 	private Integer eventId;
 
 	private Integer prev;
@@ -24,6 +26,26 @@ public class TransitionEntity {
 	private Date updateTime;
 
 	private EventEntity event;
+
+	private String prevNode;
+
+	private String nextNode;
+
+	public String getPrevNode() {
+		return prevNode;
+	}
+
+	public void setPrevNode(String prevNode) {
+		this.prevNode = prevNode;
+	}
+
+	public String getNextNode() {
+		return nextNode;
+	}
+
+	public void setNextNode(String nextNode) {
+		this.nextNode = nextNode;
+	}
 
 	public EventEntity getEvent() {
 		return event;
@@ -78,5 +100,13 @@ public class TransitionEntity {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getMachineId() {
+		return machineId;
+	}
+
+	public void setMachineId(Integer machineId) {
+		this.machineId = machineId;
 	}
 }

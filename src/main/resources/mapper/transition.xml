@@ -12,4 +12,8 @@
 	<select id="getTransitions" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransitionEntity">
 		select * from t_transition where machineId = #{machineId};
 	</select>
+
+	<insert id="insertTransition" parameterType="com.example.demo.domain.TransitionEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_transition (machineId, eventId, prev, next) values (#{machineId}, #{eventId}, #{prev}, #{next})
+	</insert>
 </mapper>

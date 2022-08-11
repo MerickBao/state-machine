@@ -19,4 +19,8 @@ public class EventService {
     public EventEntity getEventById(Integer id) {
         return eventDAO.getEventById(id);
     }
+
+    Integer insertEvent(EventEntity event){
+        return eventDAO.insertEvent(event);
+    };
 }

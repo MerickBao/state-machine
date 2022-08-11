@@ -16,4 +16,8 @@ public interface StateMachineDAO {
     StateMachineEntity getStateMachineById(Integer id);
 
     List<StateMachineEntity> getStateMachines();
+
+    Integer insertStateMachine(StateMachineEntity schema);
+
+    void updateStateMachine(StateMachineEntity schema);
 }

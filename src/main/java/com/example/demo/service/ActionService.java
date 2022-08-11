@@ -23,6 +23,9 @@ public class ActionService {
 		return actionDAO.getActionsByNodeId(nodeId);
 	}
 
+	public Integer insertAction(ActionEntity action) {
+		return actionDAO.insertAction(action);
+	}
 	public int applyAction(ActionEntity action) {
 		System.out.println(action.getUrl());
 		return 0;

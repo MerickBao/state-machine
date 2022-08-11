@@ -14,4 +14,6 @@ import java.util.List;
 @Mapper
 public interface ActionDAO {
 	List<ActionEntity> getActionsByNodeId(Integer nodeId);
+
+	Integer insertAction(ActionEntity action);
 }

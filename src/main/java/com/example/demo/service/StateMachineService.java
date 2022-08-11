@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -81,19 +82,10 @@ public class StateMachineService {
 		private final JsonNode machineSchema;
 		private final Map<String, StateNodeEntity> nodeRegistry = new HashMap<>();
 		private final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		private int code;
 		private StateMachineEntity schema;
 
 		StateMachineBuilder(JsonNode machineSchema) {
 			this.machineSchema = machineSchema;
-		}
-
-		public int getCode() {
-			return code;
-		}
-
-		public void setCode(int code) {
-			this.code = code;
 		}
 
 		public StateMachineEntity getSchema() {
@@ -104,18 +96,19 @@ public class StateMachineService {
 			return nodeRegistry.put(identification, stateNode) == null;
 		}
 
-		public void build() {
-			schema = new StateMachineEntity();
+		@Transactional
+		public int build() {
+			if (!machineSchema.isObject()) return 1;
 
-			String description = machineSchema.get("description").textValue();
-			if (description == null) {
-				this.setCode(2);
-				return;
-			}
+			
+			JsonNode descriptionField = machineSchema.get("description");
+			if (descriptionField == null) return 2;
+			String description = descriptionField.textValue();
+			if (description == null) return 3;
+
+			schema = new StateMachineEntity();
 			schema.setDescription(description);
 			schema.setDefaultStateId(-1);
-
-			String defaultStateId = machineSchema.get("defaultState").textValue();
 
 			List<StateNodeEntity> stateNodes;
 			try {
@@ -123,21 +116,26 @@ public class StateMachineService {
 					.readerForListOf(StateNodeEntity.class)
 					.readValue(machineSchema.get("stateNodes"));
 			} catch (IOException e) {
-				this.setCode(3);
-				return;
+				return 4;
 			}
+
 			for (StateNodeEntity node : stateNodes) {
-				if (!register(node.getIdentification(), node)) {
-					this.setCode(4);
-					return;
+				if (node.getDescription() == null) return 5;
+				if (node.getIdentification() == null) return 6;
+				if (!register(node.getIdentification(), node)) return 7;
+				if (node.getActions() == null) return 8;
+				for (ActionEntity action : node.getActions()) {
+					if (action.getUrl() == null) return 9;
 				}
 			}
 
+			JsonNode defaultStateField = machineSchema.get("defaultState");
+			if (defaultStateField == null) return 10;
+			String defaultStateId = defaultStateField.textValue();
 			StateNodeEntity defaultState = nodeRegistry.get(defaultStateId);
-			if (defaultState == null) {
-				this.setCode(5);
-				return;
-			}
+			if (defaultState == null) return 11;
+
+
 
 			List<RawTransition> rawTransitions;
 			try {
@@ -145,19 +143,15 @@ public class StateMachineService {
 					.readerForListOf(RawTransition.class)
 					.readValue(machineSchema.get("transitions"));
 			} catch (IOException e) {
-				this.setCode(6);
-				return;
+				return 12;
 			}
 
 			for (RawTransition rawTransition : rawTransitions) {
-				if ((rawTransition.prev = nodeRegistry.get(rawTransition.prevNode)) == null) {
-					this.setCode(7);
-					return;
-				}
-				if ((rawTransition.next = nodeRegistry.get(rawTransition.nextNode)) == null) {
-					this.setCode(8);
-					return;
-				}
+				if ((rawTransition.prev = nodeRegistry.get(rawTransition.prevNode)) == null) return 13;
+				if ((rawTransition.next = nodeRegistry.get(rawTransition.nextNode)) == null) return 14;
+				if (rawTransition.event == null) return 15;
+				if (rawTransition.event.getDescription() == null) return 16;
+				if (rawTransition.event.getCode() == null) return 17;
 			}
 
 			// 全部读取完毕并验证成功，开始插入数据
@@ -182,17 +176,15 @@ public class StateMachineService {
 				transition.setEventId(rawTransition.event.getId());
 				transitionService.insertTransition(transition);
 			}
+			return 0;
 		}
 	}
 
 	public int createStateMachine(JsonNode machineSchema) {
-		if (!machineSchema.isObject())
-			return 1;
-
 		StateMachineBuilder builder = new StateMachineBuilder(machineSchema);
 
-		builder.build();
-		System.out.printf("code = %s\n", builder.code);
-		return builder.code;
+		int code = builder.build();
+		System.out.printf("code = %s\n", code);
+		return code;
 	}
 }

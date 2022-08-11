@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.EventEntity;
 import java.util.Date;
 
 /**

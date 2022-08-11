@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.ActionEntity;
 import java.util.Date;
 import java.util.List;
 

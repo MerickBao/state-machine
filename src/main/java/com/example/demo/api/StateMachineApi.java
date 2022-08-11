@@ -5,8 +5,12 @@ import com.example.demo.domain.StateMachineEntity;
 import com.example.demo.domain.TransitionEntity;
 import com.example.demo.service.StateMachineService;
 import com.example.demo.service.TransitionService;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +38,11 @@ public class StateMachineApi {
 		return new JsonResponse<>(stateMachineEntity);
 	}
 
+	@PostMapping("/state-machine")
+	public JsonResponse<String> createStateMachine(@RequestBody JsonNode machine) {
+		int res = stateMachineService.createStateMachine(machine);
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+	}
 
 	// 获得单个状态机的完整结构（json包）
 	@GetMapping("/state-machine-struct")
@@ -55,5 +64,4 @@ public class StateMachineApi {
 		List<TransitionEntity> transitions = transitionService.getTransitions(machineId);
 		return new JsonResponse<>(transitions);
 	}
-
 }

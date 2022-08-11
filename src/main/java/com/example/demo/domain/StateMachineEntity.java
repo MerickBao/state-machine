@@ -1,7 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.domain.StateNodeEntity;
-import com.example.demo.domain.TransitionEntity;
 import java.util.Date;
 import java.util.List;
 /**

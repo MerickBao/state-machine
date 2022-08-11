@@ -6,7 +6,7 @@
 	</select>
 
 	<select id="getTransition" resultType="com.example.demo.domain.TransitionEntity">
-		select * from t_transition where prev = #{nodeId} and eventId = #{eventId};
+		select t_transition.id, machineId, eventId, prev, next, t_transition.createTime, t_transition.updateTime from t_transition inner join t_event on eventId = t_event.id where prev = #{nodeId} and code = #{code};
 	</select>
 
 	<select id="getTransitions" parameterType="java.lang.Integer" resultType="com.example.demo.domain.TransitionEntity">

@@ -9,7 +9,7 @@ import java.util.List;
 public interface TransitionDAO {
 	TransitionEntity getTransById(Integer id);
 
-	TransitionEntity getTransition(@Param("nodeId") Integer nodeId, @Param("eventId") Integer eventId);
+	List<TransitionEntity> getTransition(@Param("nodeId") Integer nodeId, @Param("code") Integer code);
 
 	List<TransitionEntity> getTransitions(Integer machineId);
 

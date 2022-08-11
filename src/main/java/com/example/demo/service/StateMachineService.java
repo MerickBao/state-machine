@@ -100,7 +100,7 @@ public class StateMachineService {
 		public int build() {
 			if (!machineSchema.isObject()) return 1;
 
-			
+
 			JsonNode descriptionField = machineSchema.get("description");
 			if (descriptionField == null) return 2;
 			String description = descriptionField.textValue();

@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.TransitionDAO;
-import com.example.demo.domain.EventEntity;
 import com.example.demo.domain.TransitionEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,10 @@ public class TransitionService {
 	}
 
 	public TransitionEntity getTrans(Integer curNodeId, Integer code) {
-		List<EventEntity> events = eventService.getEventByCode(code);
-		// 要求code对应的event有且仅有1个
-		if (events.size() != 1) return null;
-		TransitionEntity trans = transitionDAO.getTransition(curNodeId, events.get(0).getId());
-		if (trans == null) return null;
-		trans.setEvent(events.get(0));
-		return trans;
+		List<TransitionEntity> transitions = transitionDAO.getTransition(curNodeId, code);
+		return transitions.size() == 1 ? transitions.get(0) : null;
 	}
+
 	public List<TransitionEntity> getTransitions(Integer machineId) {
 		List<TransitionEntity> trans = transitionDAO.getTransitions(machineId);
 		for (TransitionEntity t : trans) {

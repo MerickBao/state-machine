@@ -52,16 +52,16 @@ public class StateMachineEntity {
 
 	private Integer defaultStateId;
 
-	private List<StateNodeEntity> states;
+	private List<StateNodeEntity> stateNodes;
 
 	private List<TransitionEntity> transitions;
 
-	public List<StateNodeEntity> getStates() {
-		return states;
+	public List<StateNodeEntity> getStateNodes() {
+		return stateNodes;
 	}
 
-	public void setStates(List<StateNodeEntity> states) {
-		this.states = states;
+	public void setStateNodes(List<StateNodeEntity> stateNodes) {
+		this.stateNodes = stateNodes;
 	}
 
 	public List<TransitionEntity> getTransitions() {

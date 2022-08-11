@@ -8,4 +8,9 @@
         select * from t_state_node where id = #{id}
     </select>
 
+    <select id="getStateNodes" parameterType="java.lang.Integer" resultType="com.example.demo.domain.StateNodeEntity">
+        select * from t_state_node where machineId = #{machineId}
+    </select>
+
+
 </mapper>

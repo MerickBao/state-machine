@@ -38,7 +38,7 @@ public class StateMachineApi {
 	// 获得单个状态机的完整结构（json包）
 	@GetMapping("/state-machine-struct")
 	public JsonResponse<StateMachineEntity> getStructById(@RequestParam Integer machineId) {
-		StateMachineEntity stateMachineEntity = stateMachineService.getStateMachineById(machineId);
+		StateMachineEntity stateMachineEntity = stateMachineService.getStructById(machineId);
 		return new JsonResponse<>(stateMachineEntity);
 	}
 

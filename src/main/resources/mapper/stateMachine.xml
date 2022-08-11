@@ -12,4 +12,13 @@
         select * from t_machine_schema
     </select>
 
+    <insert id="insertStateMachine" parameterType="com.example.demo.domain.StateMachineEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into t_machine_schema (description, defaultStateId) values (#{description}, #{defaultStateId})
+    </insert>
+
+    <update id="updateStateMachine" parameterType="com.example.demo.domain.StateMachineEntity">
+        update t_machine_schema set description = #{description}, defaultStateId = #{defaultStateId} where id = #{id}
+    </update>
+
+
 </mapper>

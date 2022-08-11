@@ -36,4 +36,8 @@ public class TransitionService {
 		}
 		return trans;
 	}
+
+	Integer insertTransition(TransitionEntity trans) {
+		return transitionDAO.insertTransition(trans);
+	}
 }

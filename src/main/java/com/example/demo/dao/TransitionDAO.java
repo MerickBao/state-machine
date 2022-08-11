@@ -12,4 +12,6 @@ public interface TransitionDAO {
 	TransitionEntity getTransition(@Param("nodeId") Integer nodeId, @Param("eventId") Integer eventId);
 
 	List<TransitionEntity> getTransitions(Integer machineId);
+
+	Integer insertTransition(TransitionEntity trans);
 }

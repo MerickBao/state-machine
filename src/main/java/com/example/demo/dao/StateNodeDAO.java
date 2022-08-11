@@ -15,4 +15,6 @@ public interface StateNodeDAO {
 	StateNodeEntity getStateNodeById(Integer id);
 
 	List<StateNodeEntity> getStateNodes(Integer machineId);
+
+	Integer insertNode(StateNodeEntity node);
 }

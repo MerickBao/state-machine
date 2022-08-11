@@ -39,4 +39,9 @@ public class StateNodeService {
 		}
 		return nodes;
 	}
+
+	// 插入结点，返回结点id
+	public Integer insertNode(StateNodeEntity node) {
+		return stateNodeDAO.insertNode(node);
+	}
 }

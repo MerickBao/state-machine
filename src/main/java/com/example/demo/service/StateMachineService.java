@@ -25,6 +25,12 @@ import java.util.Map;
 public class StateMachineService {
 
 	@Autowired
+	private ActionService actionService;
+
+	@Autowired
+	private EventService eventService;
+
+	@Autowired
 	private StateMachineDAO stateMachineDAO;
 
 	@Autowired
@@ -49,6 +55,14 @@ public class StateMachineService {
 
 	public List<StateMachineEntity> getStateMachines() {
 		return stateMachineDAO.getStateMachines();
+	}
+
+    public Integer insertStateMachine(StateMachineEntity schema) {
+		return stateMachineDAO.insertStateMachine(schema);
+	}
+
+    public void updateStateMachine(StateMachineEntity schema) {
+		stateMachineDAO.updateStateMachine(schema);
 	}
 
 	static class RawTransition {
@@ -99,6 +113,7 @@ public class StateMachineService {
 				return;
 			}
 			schema.setDescription(description);
+			schema.setDefaultStateId(-1);
 
 			String defaultStateId = machineSchema.get("defaultState").textValue();
 
@@ -146,23 +161,26 @@ public class StateMachineService {
 			}
 
 			// 全部读取完毕并验证成功，开始插入数据
-			StateMachineDAO./* 插入 */(schema);
+			insertStateMachine(schema);
 			for (StateNodeEntity node : stateNodes) {
 				node.setMachineId(schema.getId());
-				StateNodeDAO./* 插入 */(node);
+				stateNodeService.insertNode(node);
 				for (ActionEntity action : node.getActions()) {
 					action.setNodeId(node.getId());
-					ActionDAO./* 插入 */(action);
+					actionService.insertAction(action);
 				}
 			}
+			schema.setDefaultStateId(defaultState.getId());
+			updateStateMachine(schema);
 
 			for (RawTransition rawTransition : rawTransitions) {
 				TransitionEntity transition = new TransitionEntity();
 				transition.setPrev(rawTransition.prev.getId());
 				transition.setNext(rawTransition.next.getId());
-				EventDAO./* 插入 */(rawTransition.event);
+				transition.setMachineId(schema.getId());
+				eventService.insertEvent(rawTransition.event);
 				transition.setEventId(rawTransition.event.getId());
-				TransitionDAO./* 插入 */(transitition);
+				transitionService.insertTransition(transition);
 			}
 		}
 	}

@@ -28,6 +28,7 @@ public class StateMachineInstanceApi {
 		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
 	}
 
+	// 查询一类状态机的所有实例
 	@GetMapping("/instances")
 	public JsonResponse<List<InstanceEntity>> getInstances(@RequestParam Integer machineId) {
 		List<InstanceEntity> instances = stateMachineInstanceService.getInstances(machineId);

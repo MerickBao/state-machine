@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.domain.ActionEntity;
 import java.util.Date;
 import java.util.List;
 
@@ -23,15 +24,15 @@ public class StateNodeEntity {
 
     private Date updateTime;
 
-    public List<ActionEntity> getActionEntities() {
-        return actionEntities;
+    private List<ActionEntity> actions;
+
+    public List<ActionEntity> getActions() {
+        return actions;
     }
 
-    public void setActionEntities(List<ActionEntity> actionEntities) {
-        this.actionEntities = actionEntities;
+    public void setActions(List<ActionEntity> actions) {
+        this.actions = actions;
     }
-
-    private List<ActionEntity> actionEntities;
 
     public Integer getId() {
         return id;

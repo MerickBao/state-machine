@@ -34,6 +34,14 @@ public class StateMachineApi {
 		return new JsonResponse<>(stateMachineEntity);
 	}
 
+
+	// 获得单个状态机的完整结构（json包）
+	@GetMapping("/state-machine-struct")
+	public JsonResponse<StateMachineEntity> getStructById(@RequestParam Integer machineId) {
+		StateMachineEntity stateMachineEntity = stateMachineService.getStateMachineById(machineId);
+		return new JsonResponse<>(stateMachineEntity);
+	}
+
 	// 查询所有状态机
 	@GetMapping("/state-machines")
 	public JsonResponse<List<StateMachineEntity>> getStateMachines() {
@@ -47,4 +55,5 @@ public class StateMachineApi {
 		List<TransitionEntity> transitions = transitionService.getTransitions(machineId);
 		return new JsonResponse<>(transitions);
 	}
+
 }

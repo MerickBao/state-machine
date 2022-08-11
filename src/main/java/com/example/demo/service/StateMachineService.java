@@ -115,7 +115,7 @@ public class StateMachineService {
 				stateNodes = mapper
 					.readerForListOf(StateNodeEntity.class)
 					.readValue(machineSchema.get("stateNodes"));
-			} catch (IOException e) {
+			} catch (IOException | IllegalArgumentException e) {
 				return 4;
 			}
 
@@ -142,7 +142,7 @@ public class StateMachineService {
 				rawTransitions = mapper
 					.readerForListOf(RawTransition.class)
 					.readValue(machineSchema.get("transitions"));
-			} catch (IOException e) {
+			} catch (IOException | IllegalArgumentException e) {
 				return 12;
 			}
 
@@ -183,8 +183,6 @@ public class StateMachineService {
 	public int createStateMachine(JsonNode machineSchema) {
 		StateMachineBuilder builder = new StateMachineBuilder(machineSchema);
 
-		int code = builder.build();
-		System.out.printf("code = %s\n", code);
-		return code;
+		return builder.build();
 	}
 }

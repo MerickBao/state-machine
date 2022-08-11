@@ -41,7 +41,7 @@ public class StateMachineApi {
 	@PostMapping("/state-machine")
 	public JsonResponse<String> createStateMachine(@RequestBody JsonNode machine) {
 		int res = stateMachineService.createStateMachine(machine);
-		return res == 0 ? JsonResponse.success() : JsonResponse.fail();
+		return res == 0 ? JsonResponse.success() : JsonResponse.fail(Integer.toString(res));
 	}
 
 	// 获得单个状态机的完整结构（json包）

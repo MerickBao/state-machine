@@ -37,6 +37,10 @@ public class JsonResponse<T> {
 		return new JsonResponse<>("1", "失败");
 	}
 
+	public static JsonResponse<String> fail(String code) {
+		return new JsonResponse<>(code, "失败");
+	}
+
 	public static JsonResponse<String> fail(String code, String msg) {
 		return new JsonResponse<>(code, msg);
 	}

@@ -43,6 +43,9 @@ public class StateMachineInstanceService {
 			return 1;
 		}
 		StateMachineEntity schema = stateMachineService.getStateMachineById(instance.getMachineId());
+		if (schema == null) {
+			return 2;
+		}
 		instance.setCurrentStateId(schema.getDefaultStateId());
 		stateMachineInstanceDAO.insertInstance(instance);
 		return 0;

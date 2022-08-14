@@ -26,7 +26,7 @@
 
 状态机任意时刻都只处于一个确定的状态，在该状态下，状态机只会对特定的事件进行响应并进行对应状态的流转，当状态机流转到一个新的状态时，会触发该状态预设的一些动作并执行。
 
-![C2C交易状态机](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814170511)
+![C2C交易状态机](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814172939.png)
 
 ### 概要设计
 
@@ -105,20 +105,20 @@ service层内包含7个模块。其中
 
 - ##### 组件设计
 
-    - 状态机生命周期流程图
+  - 状态机生命周期流程图
 
-  ![状态机实例生命周期](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171120.(null))
+  ![状态机实例生命周期](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814172750.png)
 
-    - 状态流转实现逻辑
+  - 状态流转实现逻辑
 
- ![状态机流转逻辑](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171321.jpeg)
+![状态机流转逻辑](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171321.jpeg)
 
- ![状态机流转时序图](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171502.jpeg)
+![状态机流转时序图](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171502.jpeg)
 
 
 - 状态机（Schema）创建实现逻辑
 
-- ![状态机schema创建时序图](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171607.jpeg)
+ ![状态机schema创建时序图](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220814171607.jpeg)
 
 - 以配置文件形式创建状态机
 
@@ -183,7 +183,9 @@ service层内包含7个模块。其中
 - ##### 非功能性设计
 
 - - 稳定性：
+
 - 数据一致性：
+
 - 扩展性：新的的业务系统可以以配置文件或者在系统界面以交互的形式，定义并生成专用于自身业务的状态机，后续便可以使用该状态机创建对应业务的状态机实例，实现业务功能和维护。
 
 ### 详细设计

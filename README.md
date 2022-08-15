@@ -194,7 +194,7 @@ service层内包含7个模块。其中
 
 https://dbdiagram.io/d/62f0fcb7c2d9cf52fa671249
 
-![img](https://bytedancecampus1.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDI5OTYwNmJmZmY5MWFmYWZlZjdlMTg0ZGEzODRjZWVfUWR5d0RiM2dYS0NRaWM2NkdwVUc0ZnQ5SWZncUZqZThfVG9rZW46Ym94Y255ZDUxcnU4STZXV2MzcUxSbGVNQnBmXzE2NjA0Njc4NTY6MTY2MDQ3MTQ1Nl9WNA)
+![数据库表关系](https://cdn.jsdelivr.net/gh/MerickBao/picEmbedding/img/20220815230438.png)
 
 #### 接口文档（待补充）
 

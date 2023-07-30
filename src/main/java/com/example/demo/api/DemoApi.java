@@ -3,10 +3,13 @@ package com.example.demo.api;
 import com.example.demo.domain.DemoEntity;
 import com.example.demo.domain.JsonResponse;
 import com.example.demo.service.DemoService;
+import com.example.demo.service.WebsocketServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @Author: merickbao
@@ -61,5 +64,11 @@ public class DemoApi {
 	public JsonResponse<DemoEntity> jsonResponseTestWithDAO(@RequestParam int id) {
 		DemoEntity demoEntity = demoService.getDemoEntityById(id);
 		return new JsonResponse<>(demoEntity);
+	}
+
+	@GetMapping("/websocket-sent-msg-test")
+	public JsonResponse<String> sentWebSocketMsgTest() {
+		WebsocketServer.sendMessageToAll("WebServer Msg test");
+		return JsonResponse.success();
 	}
 }

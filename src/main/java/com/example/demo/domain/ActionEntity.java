@@ -59,4 +59,14 @@ public class ActionEntity {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	@Override
+	public String toString() {
+		return "{id=" + id +
+				", nodeId=" + nodeId +
+				", url='" + url + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				'}';
+	}
 }

@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.config.WebSocketConfig;
 import com.example.demo.domain.ActionEntity;
 import com.example.demo.domain.JsonResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -17,7 +21,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 
 @Component
-@ServerEndpoint("/websocket")
+@ServerEndpoint(value = "/websocket", configurator = WebSocketConfig.class)
 public class WebsocketServer {
 
     private static CopyOnWriteArrayList<Session> sessions = new CopyOnWriteArrayList<>();
@@ -27,6 +31,8 @@ public class WebsocketServer {
         // 当有新的连接打开时，将新的 Session 添加到 sessions 列表中
         sessions.add(session);
         System.out.println("New session opened: " + session.getId());
+        System.out.println(session.getRequestParameterMap().toString());
+        System.out.println(session.getUserProperties().get("host-test").toString());
     }
 
     @OnMessage
